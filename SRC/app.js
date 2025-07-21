@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import userRoutes from '../ROUTES/users.js'; 
+import userRoutes from '../ROUTES/users.js';
 
 dotenv.config();
 
@@ -17,14 +17,13 @@ app.use(express.json());
 app.use('/api/users', userRoutes);
 
 app.get('/', (req, res) => {
-  res.json({ message: 'API funcionando 🚀' });
+    res.json({ message: 'API funcionando 🚀' });
 });
 
 mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 })
-<<<<<<< HEAD
     .then(() => {
         console.log('✅ Conectado a MongoDB');
         app.listen(PORT, () => {
@@ -34,14 +33,3 @@ mongoose.connect(MONGODB_URI, {
     .catch((error) => {
         console.error('❌ Error al conectar a MongoDB:', error);
     });
-=======
-.then(() => {
-  console.log('✅ Conectado a MongoDB');
-  app.listen(PORT, () => {
-    console.log(`🚀 Servidor en http://localhost:${PORT}`);
-  });
-})
-.catch((error) => {
-  console.error('❌ Error al conectar MongoDB:', error);
-});
->>>>>>> 3536a911d1eb197e47c607371f1a4979ba9ce535
