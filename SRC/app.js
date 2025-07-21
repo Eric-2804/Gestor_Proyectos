@@ -1,37 +1,35 @@
-// src/server.js
-
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import userRoutes from '../ROUTES/users.js'; 
 
-// Cargar variables de entorno
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/gestor_proyectos';
 
-// Middlewares básicos
 app.use(cors());
 app.use(express.json());
 
-// Ruta de prueba
+// Usa la ruta
+app.use('/api/users', userRoutes);
+
 app.get('/', (req, res) => {
-    res.json({ message: 'API Gestor de Proyectos funcionando 🚀' });
+  res.json({ message: 'API funcionando 🚀' });
 });
 
-// Conexión a MongoDB
 mongoose.connect(MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 })
-    .then(() => {
-        console.log('✅ Conectado a MongoDB');
-        app.listen(PORT, () => {
-            console.log(`🚀 Servidor escuchando en http://localhost:${PORT}`);
-        });
-    })
-    .catch((error) => {
-        console.error('❌ Error al conectar a MongoDB:', error);
-    });
+.then(() => {
+  console.log('✅ Conectado a MongoDB');
+  app.listen(PORT, () => {
+    console.log(`🚀 Servidor en http://localhost:${PORT}`);
+  });
+})
+.catch((error) => {
+  console.error('❌ Error al conectar MongoDB:', error);
+});
