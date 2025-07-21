@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const projectSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -11,7 +11,11 @@ const projectSchema = new mongoose.Schema({
         joinedAt: { type: Date, default: Date.now }
     }],
     status: { type: mongoose.Schema.Types.ObjectId, ref: 'State' },
-    priority: { type: String, enum: ['Low', 'Medium', 'High', 'Critical'], default: 'Medium' },
+    priority: {
+        type: String,
+        enum: ['Low', 'Medium', 'High', 'Critical'],
+        default: 'Medium'
+    },
     startDate: { type: Date },
     endDate: { type: Date },
     estimatedHours: { type: Number },
@@ -21,4 +25,6 @@ const projectSchema = new mongoose.Schema({
     tags: [String]
 }, { timestamps: true });
 
-module.exports = mongoose.model('Project', projectSchema);
+const Project = mongoose.model('Project', projectSchema);
+export default Project;
+

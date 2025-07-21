@@ -2,7 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import userRoutes from '../ROUTES/users.js';
+
+import userRoutes from './routes/userRoutes.js'; // ✅ rutas
 
 dotenv.config();
 
@@ -13,23 +14,26 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/gestor
 app.use(cors());
 app.use(express.json());
 
-// Usa la ruta
+// Rutas
 app.use('/api/users', userRoutes);
 
+// Ruta raíz
 app.get('/', (req, res) => {
     res.json({ message: 'API funcionando 🚀' });
 });
 
+// Conexión a MongoDB
 mongoose.connect(MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-    .then(() => {
-        console.log('✅ Conectado a MongoDB');
-        app.listen(PORT, () => {
-            console.log(`🚀 Servidor escuchando en http://localhost:${PORT}`);
-        });
-    })
-    .catch((error) => {
-        console.error('❌ Error al conectar a MongoDB:', error);
+.then(() => {
+    console.log('✅ Conectado a MongoDB');
+    app.listen(PORT, () => {
+        console.log(`🚀 Servidor escuchando en http://localhost:${PORT}`);
     });
+})
+.catch((error) => {
+    console.error('❌ Error al conectar MongoDB:', error);
+});
+

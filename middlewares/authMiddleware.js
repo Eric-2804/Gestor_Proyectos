@@ -1,11 +1,11 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
-const Role = require('../models/Role');
+import jwt from 'jsonwebtoken';
+import User from '../models/User.js';
+import Role from '../models/Role.js';
 
 const secretKey = process.env.JWT_SECRET || 'secret123';
 
 // 1. Verificar que el token JWT sea válido
-exports.verifyToken = async (req, res, next) => {
+export const verifyToken = async (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]; // Bearer <token>
 
@@ -24,7 +24,7 @@ exports.verifyToken = async (req, res, next) => {
 };
 
 // 2. Middleware: Solo para ADMIN global
-exports.isAdmin = (req, res, next) => {
+export const isAdmin = (req, res, next) => {
     if (!req.user) return res.status(401).json({ error: 'Usuario no autenticado' });
 
     if (req.user.globalRole?.name !== 'Admin') {
@@ -35,7 +35,7 @@ exports.isAdmin = (req, res, next) => {
 };
 
 // 3. Middleware: Acepta uno o más roles globales
-exports.hasRole = (roles = []) => {
+export const hasRole = (roles = []) => {
     return (req, res, next) => {
         if (!req.user) return res.status(401).json({ error: 'Usuario no autenticado' });
 
@@ -47,3 +47,5 @@ exports.hasRole = (roles = []) => {
         next();
     };
 };
+
+
