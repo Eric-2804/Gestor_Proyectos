@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 
 import userRoutes from './routes/userRoutes.js'; // ✅ rutas
+import roleRoutes from './routes/Role.js'; // ✅ rutas de roles
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 
 // Rutas
 app.use('/api/users', userRoutes);
+app.use('/api/roles', roleRoutes);
 
 // Ruta raíz
 app.get('/', (req, res) => {
