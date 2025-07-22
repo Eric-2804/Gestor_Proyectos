@@ -1,17 +1,18 @@
+// controllers/userController.js
 import User from '../models/User.js';
 import Role from '../models/Role.js';
 
-// Listar todos los usuarios (solo Admin)
 export const getAllUsers = async (req, res) => {
     try {
-        const users = await User.find().populate('globalRole', 'name description');
+        const users = await User.find()
+            .select('-password')
+            .populate('globalRole', 'name description');
         res.json(users);
     } catch (err) {
         res.status(500).json({ error: 'Error al obtener los usuarios' });
     }
 };
 
-// Ver perfil del usuario autenticado
 export const getProfile = (req, res) => {
     const user = req.user;
     res.json({
@@ -28,10 +29,10 @@ export const getProfile = (req, res) => {
     });
 };
 
-// Actualizar perfil del usuario autenticado
 export const updateProfile = async (req, res) => {
     try {
         const updates = req.body;
+        delete updates.globalRole; // previene cambios no permitidos
         const updated = await User.findByIdAndUpdate(req.user._id, updates, { new: true });
         res.json(updated);
     } catch (err) {
@@ -39,7 +40,6 @@ export const updateProfile = async (req, res) => {
     }
 };
 
-// Cambiar rol global (solo Admin)
 export const changeUserRole = async (req, res) => {
     try {
         const { roleId } = req.body;
@@ -57,7 +57,6 @@ export const changeUserRole = async (req, res) => {
     }
 };
 
-// Eliminar usuario (solo Admin)
 export const deleteUser = async (req, res) => {
     try {
         const deleted = await User.findByIdAndDelete(req.params.id);
@@ -67,4 +66,3 @@ export const deleteUser = async (req, res) => {
         res.status(500).json({ error: 'Error al eliminar el usuario' });
     }
 };
-

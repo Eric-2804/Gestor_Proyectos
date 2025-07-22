@@ -1,4 +1,3 @@
-// routes/projectRoutes.js
 import express from 'express';
 import {
     createProject,

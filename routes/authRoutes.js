@@ -11,9 +11,7 @@ router.post('/register', async (req, res) => {
         const user = new User(req.body);
         await user.save();
 
-        // Token JWT
         const token = jwt.sign({ id: user._id }, secretKey, { expiresIn: '1d' });
-
         res.status(201).json({ token, user });
     } catch (err) {
         res.status(400).json({ error: err.message });
@@ -21,4 +19,3 @@ router.post('/register', async (req, res) => {
 });
 
 export default router;
-
