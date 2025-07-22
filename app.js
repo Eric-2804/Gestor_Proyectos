@@ -8,6 +8,7 @@ import authRoutes from './routes/authRoutes.js'; // 👈 Importa las rutas de au
 import projectRoutes from './routes/projectRoutes.js';
 import taskRoutes from './routes/taskRoutes.js';
 import CommentRoutes from './routes/comment.js';
+import StateRoutes from './routes/State.js'
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api/comments',CommentRoutes)
+app.use('/api/State',StateRoutes)
 
 app.get('/', (req, res) => {
     res.json({ message: 'API funcionando 🚀' });

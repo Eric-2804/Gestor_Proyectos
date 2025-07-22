@@ -32,7 +32,10 @@ export const deactivateState = async (req,res) => {
     try{
         const {id}= req.params
         const state = await State.findByIdAndUpdate(id,{isActive : false},{new:true})
-        res.status(200).json
+        res.status(200).json({message :'Estado desactivado',state})
+    }catch(error){
+        res.status(400).json({message:'Error al desactivar estado', error: error.message})
+
     }
 }
 
