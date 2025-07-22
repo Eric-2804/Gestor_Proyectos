@@ -6,8 +6,11 @@ import {
     updateTask,
     deleteTask
 } from '../controllers/taskController.js';
+import { verifyToken } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
+
+router.use(verifyToken);
 
 router.get('/', getAllTasks);
 router.post('/', createTask);
@@ -16,3 +19,4 @@ router.put('/:id', updateTask);
 router.delete('/:id', deleteTask);
 
 export default router;
+
