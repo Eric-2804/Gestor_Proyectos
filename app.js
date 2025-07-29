@@ -4,12 +4,13 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 
 import userRoutes from './routes/userRoutes.js';
-import authRoutes from './routes/authRoutes.js'; // 👈 Importa las rutas de auth
+import authRoutes from './routes/authRoutes.js';
 import projectRoutes from './routes/projectRoutes.js';
 import taskRoutes from './routes/taskRoutes.js';
 import CommentRoutes from './routes/comment.js';
 import StateRoutes from './routes/State.js'
 import uploadRoutes from './routes/uploadRoutes.js';
+import aiRoutes from './routes/ia.js';
 
 
 dotenv.config();
@@ -29,7 +30,7 @@ app.use('/api/tasks', taskRoutes);
 app.use('/api/comments',CommentRoutes)
 app.use('/api/State',StateRoutes)
 app.use('/api/uploads', uploadRoutes);
-
+app.use('/api/ai', aiRoutes);
 app.get('/', (req, res) => {
     res.json({ message: 'API funcionando 🚀' });
 });
